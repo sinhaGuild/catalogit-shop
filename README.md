@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ <div style="padding:18px">
+  <p align="center">
+      <img src="https://i.imgur.com/5sGXVWv.png" height="250">
+      <h1 align="center" style="letter-spacing:24px;font-size:32px;">PIKASO</h1>
+      <h1 align="center" style="letter-spacing:18px;font-size:18px;">CATALOGIT-SHOP</h1>
+  </p>
+    <a href="https://github.com/sinhaGuild">
+      <p align="center" style="font-weight:normal;text-underline-offset:8px;font-style:italic;">by sinhaguild</p>
+    </a>
+      <hr style="border-top:8px solid #bbb;border-radius:5px;" />
+  </div>
+
+# CatalogIt Shop
+
+CatalogIt Shop is a modern web application for showcasing a catalog of collectible or unique items. Built with Next.js, it provides a clean browsing experience, detailed item views, and direct WhatsApp contact for inquiries.
+
+## Features
+
+- **Catalog Home**: Browse all items in a visually appealing grid.
+- **Item Detail Page**: View detailed information, tags, and images for each item.
+- **Image Zoom**: Click any item image to open a full-resolution dialog for close inspection.
+- **Navigation Bar**: Quickly access "All Items" or contact via WhatsApp from anywhere in the app.
+- **Contact via WhatsApp**: 
+  - On item detail: Prefilled message includes the item name and link.
+  - On navigation: Prefilled message for general questions (no item link).
+- **Responsive Design**: Works great on desktop and mobile.
+- **Dark Mode**: Seamless support for light and dark themes.
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) (App Router)
+- [TypeScript](https://www.typescriptlang.org/)
+- [@notionhq/client](https://github.com/makenotion/notion-sdk-js) (for item data)
+- [Tailwind CSS](https://tailwindcss.com/) (utility-first styling)
+- [Radix UI](https://www.radix-ui.com/) (accessible UI primitives)
+- [Vercel](https://vercel.com/) (recommended deployment)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+
+### Environment Variables
+
+Create a `.env.local` file in the root with the following:
+
+```
+NOTION_TOKEN=your_notion_integration_token
+NOTION_DATABASE_ID=your_notion_database_id
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-## Learn More
+### Build for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Folder Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/                # Next.js app directory
+    layout.tsx        # Main layout (add NavBar here)
+    page.tsx          # Home page (all items)
+    item/[id]/        # Dynamic item detail pages
+      page.tsx
+  components/
+    NavBar.tsx        # Navigation bar (All Items, Contact us)
+    ItemImageGallery.tsx # Image carousel with zoom dialog
+    ui/               # UI primitives (badge, button, card, etc.)
+  lib/
+    notion.ts         # Notion API integration
+    utils.ts          # Utility functions
+  types/
+    product.ts        # Product type definitions
+public/               # Static assets (SVGs, favicon, etc.)
+```
 
-## Deploy on Vercel
+## Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Add/Remove Items**: Update your Notion database; the app fetches items dynamically.
+- **Styling**: Modify Tailwind classes or extend the UI components in `src/components/ui/`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+Pull requests and issues are welcome! Please open an issue to discuss your idea or bug before submitting a PR.
+
+## License
+
+MIT
+
+---
+
+Built with ❤️ using Next.js and Notion.

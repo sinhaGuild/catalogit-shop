@@ -25,14 +25,14 @@ export default function ItemImageGallery({ images, alt }: ItemImageGalleryProps)
 
     return (
         <>
-            <div className="relative w-full aspect-[4/3] bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center">
+            <div className="relative w-full bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center">
                 {images && images.length > 0 ? (
                     <Carousel className="w-full h-full">
                         <CarouselContent>
                             {images.map((img, idx) => (
                                 <CarouselItem key={img + idx} className="flex items-center justify-center w-full h-full">
                                     <div
-                                        className="relative w-full h-60 sm:h-80 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden cursor-zoom-in"
+                                        className="relative w-full h-fit flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden cursor-zoom-in"
                                         onClick={() => handleImageClick(img)}
                                         tabIndex={0}
                                         role="button"

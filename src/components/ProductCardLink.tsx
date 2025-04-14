@@ -47,7 +47,7 @@ export default function ProductCardLink({ product }: ProductCardLinkProps) {
             tabIndex={0}
             aria-label={`View details for ${product.name}`}
         >
-            <Card className="flex flex-col items-center border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-zinc-900 hover:shadow-lg transition-shadow duration-200 overflow-hidden">
+            <Card className="flex flex-col items-center border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-white dark:bg-zinc-900 hover:shadow-lg transition-shadow duration-200 overflow-hidden p-0">
                 <div className="w-full aspect-[4/3] flex items-center justify-center bg-zinc-50 dark:bg-zinc-800">
                     {product.image ? (
                         <Image

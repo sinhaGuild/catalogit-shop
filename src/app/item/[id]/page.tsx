@@ -23,11 +23,11 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ id:
     const whatsappMessage = `Hi, I'm interested in "${product.name}".\n${productUrl}`;
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background px-4 py-2">
             {/* Header */}
 
             <main className="flex flex-col items-center px-2 py-8 sm:px-0 w-full">
-                <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden border border-zinc-200 dark:border-zinc-800">
+                <div className="max-w-screen-xl bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden border border-zinc-200 dark:border-zinc-800">
                     <ItemImageGallery images={product.images} alt={product.name} />
                     <div className="p-6 flex flex-col gap-3">
                         <h1 className="text-2xl font-bold text-center mb-1">{product.name}</h1>

@@ -10,7 +10,7 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 
 export function NavBar() {
     return (
-        <nav className="sticky top-0 w-full flex items-center justify-between px-4 py-3 bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
+        <nav className="sticky top-0 w-full flex items-center justify-between px-4 py-3 bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800 shadow-sm z-[100]">
             <div className="flex items-center gap-4">
                 <span className="font-bold text-xl tracking-tight flex items-center gap-2">
                     <Link href={"/"}>

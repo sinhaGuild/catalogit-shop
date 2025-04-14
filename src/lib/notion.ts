@@ -5,42 +5,46 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const databaseId = process.env.NOTION_DATABASE_ID as string;
 
-function getText(property: any): string {
+import type { PageObjectResponse, RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
+
+type NotionProperty = PageObjectResponse["properties"][string];
+
+function getText(property: NotionProperty | undefined): string {
     if (!property) return "";
-    if (property.type === "title" && property.title.length > 0) {
-        return property.title.map((t: any) => t.plain_text).join(" ");
+    if (property.type === "title" && Array.isArray(property.title) && property.title.length > 0) {
+        return property.title.map((t: RichTextItemResponse) => t.plain_text).join(" ");
     }
-    if (property.type === "rich_text" && property.rich_text.length > 0) {
-        return property.rich_text.map((t: any) => t.plain_text).join(" ");
+    if (property.type === "rich_text" && Array.isArray(property.rich_text) && property.rich_text.length > 0) {
+        return property.rich_text.map((t: RichTextItemResponse) => t.plain_text).join(" ");
     }
     return "";
 }
 
-function getNumber(property: any): number | null {
+function getNumber(property: NotionProperty | undefined): number | null {
     if (!property) return null;
     if (property.type === "number") {
         return property.number ?? null;
     }
     // Handle string values (e.g., from Notion text/rich_text)
-    if (property.type === "rich_text" && property.rich_text.length > 0) {
-        const text = property.rich_text.map((t: any) => t.plain_text).join(" ");
+    if (property.type === "rich_text" && Array.isArray(property.rich_text) && property.rich_text.length > 0) {
+        const text = property.rich_text.map((t: RichTextItemResponse) => t.plain_text).join(" ");
         const num = Number(text.replace(/[^0-9.]/g, ""));
         return isNaN(num) ? null : num;
     }
-    if (property.type === "title" && property.title.length > 0) {
-        const text = property.title.map((t: any) => t.plain_text).join(" ");
+    if (property.type === "title" && Array.isArray(property.title) && property.title.length > 0) {
+        const text = property.title.map((t: RichTextItemResponse) => t.plain_text).join(" ");
         const num = Number(text.replace(/[^0-9.]/g, ""));
         return isNaN(num) ? null : num;
     }
     return null;
 }
 
-function getMultiSelect(property: any): string[] {
-    if (!property || property.type !== "multi_select") return [];
-    return property.multi_select.map((item: any) => item.name);
+function getMultiSelect(property: NotionProperty | undefined): string[] {
+    if (!property || property.type !== "multi_select" || !Array.isArray(property.multi_select)) return [];
+    return property.multi_select.map((item: { name: string }) => item.name);
 }
 
-function getUrl(property: any): string {
+function getUrl(property: NotionProperty | undefined): string {
     if (!property || property.type !== "url") return "";
     return property.url ?? "";
 }
@@ -89,7 +93,7 @@ async function getAllImageUrls(pageId: string, mainImage: string): Promise<strin
             }
             cursor = res.has_more ? res.next_cursor ?? undefined : undefined;
         } while (cursor);
-    } catch (e) {
+    } catch {
         // fail silently, return what we have
     }
     // Remove duplicates and filter out empty/invalid URLs
@@ -104,13 +108,14 @@ export const fetchProducts = cache(async (): Promise<Product[]> => {
     });
 
     return await Promise.all(
-        response.results.map(async (page: any) => {
-            const props = page.properties;
+        response.results.map(async (page) => {
+            const pageObj = page as PageObjectResponse;
+            const props = pageObj.properties;
             const mainImage = getUrl(props["Image"]);
-            const images = await getAllImageUrls(page.id, mainImage);
+            const images = await getAllImageUrls(pageObj.id, mainImage);
 
             return {
-                id: page.id,
+                id: pageObj.id,
                 name: getText(props["Name"]),
                 description: getText(props["Description"]),
                 condition: getText(props["Condition"]),

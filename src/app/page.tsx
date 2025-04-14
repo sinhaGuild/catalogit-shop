@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import ProductCardLink from "@/components/ProductCardLink";
 import { fetchProducts } from "@/lib/notion";
 

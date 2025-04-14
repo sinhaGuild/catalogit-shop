@@ -100,9 +100,7 @@ async function getAllImageUrls(pageId: string, mainImage: string): Promise<strin
     return Array.from(new Set(images)).filter((url) => typeof url === "string" && url.trim().length > 0);
 }
 
-import { cache } from "react";
-
-export const fetchProducts = cache(async (): Promise<Product[]> => {
+export const fetchProducts = async (): Promise<Product[]> => {
     const response = await notion.databases.query({
         database_id: databaseId,
     });
@@ -130,4 +128,4 @@ export const fetchProducts = cache(async (): Promise<Product[]> => {
             };
         })
     );
-});
+};

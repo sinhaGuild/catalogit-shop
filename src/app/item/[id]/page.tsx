@@ -1,9 +1,8 @@
+import ItemImageGallery from "@/components/ItemImageGallery";
 import { Badge } from "@/components/ui/badge";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { fetchProducts } from "@/lib/notion";
 import { Separator } from "@radix-ui/react-separator";
 import { headers } from "next/headers";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -29,34 +28,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ id:
 
             <main className="flex flex-col items-center px-2 py-8 sm:px-0 w-full">
                 <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                    <div className="relative w-full aspect-[4/3] bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center">
-                        {product.images && product.images.length > 0 ? (
-                            <Carousel className="w-full h-full">
-                                <CarouselContent>
-                                    {product.images.map((img, idx) => (
-                                        <CarouselItem key={img + idx} className="flex items-center justify-center w-full h-full">
-                                            <div className="relative w-full h-60 sm:h-80 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden">
-                                                <Image
-                                                    src={img}
-                                                    alt={product.name}
-                                                    width={400}
-                                                    height={300}
-                                                    className="object-contain w-full h-full"
-                                                    priority={idx === 0}
-                                                />
-                                            </div>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
-                                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
-                            </Carousel>
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-2xl">
-                                No Image
-                            </div>
-                        )}
-                    </div>
+                    <ItemImageGallery images={product.images} alt={product.name} />
                     <div className="p-6 flex flex-col gap-3">
                         <h1 className="text-2xl font-bold text-center mb-1">{product.name}</h1>
                         <div className="flex justify-center items-center gap-2 mb-2">

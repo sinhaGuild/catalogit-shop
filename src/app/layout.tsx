@@ -1,7 +1,6 @@
-import { ShoppingBag } from "lucide-react";
+import NavBar from "@/components/NavBar";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="sticky top-0 z-20 w-full bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center h-16 px-4">
+        {/* <header className="sticky top-0 z-20 w-full bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800 shadow-sm flex items-center justify-center h-16 px-4">
           <div className="flex items-center gap-2">
             <span className="font-bold text-xl tracking-tight flex items-center gap-2">
               <Link href={"/"}>
@@ -38,7 +37,8 @@ export default function RootLayout({
               ESTATE SALE
             </span>
           </div>
-        </header>
+        </header> */}
+        <NavBar />
         {children}
       </body>
     </html>
